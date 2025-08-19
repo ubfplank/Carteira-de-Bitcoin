@@ -1,5 +1,6 @@
 const readline = require("readline");
-const rl =  readline.createInterface({
+
+const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
@@ -21,11 +22,32 @@ function menu() {
     console.log("12 - View network status");
     console.log("13 - View node information");
 
-    rl.question (" voce prefere A ou B? ", (answer) => { 
-    if( answer === "A") {
-        console.log(" Você escolheu A!");
-    }
-    else if(answer ==="b") {
-    console.log(" Sua resposta foi: " + answer);
-    })
+    rl.question("Escolha uma opção: ", (answer) => {
+        switch (answer) {
+            case "1":
+                console.log("Creating wallet...");
+                break;
+            case "2":
+                console.log("Sending transaction...");
+                break;
+            case "3":
+                console.log("Receiving transaction...");
+                break;
+            case "4":
+                console.log("Exiting...");
+                rl.close();
+                return; // sai sem reabrir o menu
+            case "5":
+                console.log("Pergunta feita...");
+                break;
+            default:
+                console.log("Vai tomar no cu, não tem essa opção!");
+        }
+
+        // chama o menu de novo após 1 segundo
+        setTimeout(menu, 1000);
+    });
 }
+
+// iniciar o programa
+menu();
