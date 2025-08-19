@@ -1,22 +1,14 @@
 {
   "name": "carteira",
   "version": "1.0.0",
-  "description": "",
+  "description": "Carteira de BNB simples com menu interativo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ubfplank/Carteira-de-Bitcoin.git"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ubfplank/Carteira-de-Bitcoin/issues"
-  },
-  "homepage": "https://github.com/ubfplank/Carteira-de-Bitcoin#readme",
   "dependencies": {
     "dotenv": "^17.2.1",
     "ethers": "^6.15.0"
