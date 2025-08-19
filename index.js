@@ -1,3 +1,8 @@
+require("dotenv").config();
+const walletService = require("./WalletService.js");
+
+const SYMBOL = process.env.SYMBOL || "BTC";
+const NETWORK = process.env.NETWORK || "bitcoin";
 const readline = require("readline");
 
 const rl = readline.createInterface({
@@ -9,7 +14,7 @@ function menu() {
     console.clear();
 
     console.log("1 - Create wallet");
-    console.log("2 - Send transaction");
+    console.log("2 - Send transaction + SYMBOL");
     console.log("3 - Receive transaction");
     console.log("4 - Exit");
     console.log("5 - Ask question");
@@ -24,22 +29,14 @@ function menu() {
 
     rl.question("Escolha uma opção: ", (answer) => {
         switch (answer) {
-            case "1":
-                console.log("Creating wallet...");
-                break;
-            case "2":
-                console.log("Sending transaction...");
-                break;
-            case "3":
-                console.log("Receiving transaction...");
-                break;
+            case "1": createwallet (); break;
+            case "2":break;
+            case "3": break;
             case "4":
                 console.log("Exiting...");
                 rl.close();
                 return; // sai sem reabrir o menu
-            case "5":
-                console.log("Pergunta feita...");
-                break;
+            case "5": break;
             default:
                 console.log("Vai tomar no cu, não tem essa opção!");
         }
@@ -48,6 +45,9 @@ function menu() {
         setTimeout(menu, 1000);
     });
 }
-
+function createwallet() {
+    walletService.createWallet();
+    console.log(`Wallet created for ${SYMBOL} on ${NETWORK} network.`);
+}
 // iniciar o programa
 menu();
