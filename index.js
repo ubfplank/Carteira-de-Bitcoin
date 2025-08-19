@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config();
 const walletService = require("./WalletService.js");
 const readline = require("readline");
 
