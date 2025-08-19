@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ubfplank/Carteira-de-Bitcoin/issues"
   },
-  "homepage": "https://github.com/ubfplank/Carteira-de-Bitcoin#readme"
+  "homepage": "https://github.com/ubfplank/Carteira-de-Bitcoin#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1"
+  }
 }
