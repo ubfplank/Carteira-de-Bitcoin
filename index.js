@@ -22,15 +22,7 @@ async function menu() {
   console.log("2 - Recover Wallet");
   console.log("3 - Receive transaction");
   console.log("4 - Exit");
-  console.log("5 - Ask question");
-  console.log("6 - Balance");
-  console.log("7 - View transactions");
-  console.log("8 - View wallet address");
-  console.log("9 - Choose A or B");
-  console.log("10 - View wallet details");
-  console.log("11 - View transaction history");
-  console.log("12 - View network status");
-  console.log("13 - View node information");
+  console.log("5 - Balance");
 
   const answer = await ask("Escolha uma opção: ");
 
@@ -82,7 +74,7 @@ function recoverWallet() {
     console.log(`Your recovered wallet: `);
     console.log(myAddress);
 
-    preMenu(); 
+    pause().then(() => menu());
   });
 }
 
