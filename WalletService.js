@@ -1,4 +1,3 @@
-// WalletService.js
 const { Wallet } = require("ethers");
 
 function createWallet() {
@@ -8,8 +7,6 @@ function createWallet() {
     privateKey: wallet.privateKey
   };
 }
-
-module.exports = { createWallet };
 
 /**
  * Envia transação (stub)
@@ -21,7 +18,8 @@ async function sendTransaction({ fromAddress, toAddress, amount }) {
   return fakeTxHash;
 }
 
-module.exports = {
-  createWallet,
-  sendTransaction
-};
+function recoverWallet(pkOrMnemonic, provider) {
+
+  
+}
+

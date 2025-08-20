@@ -19,7 +19,7 @@ async function menu() {
   console.clear();
 
   console.log("1 - Create wallet");
-  console.log(`2 - Send transaction (${SYMBOL})`);
+  console.log("2 - Recover Wallet");
   console.log("3 - Receive transaction");
   console.log("4 - Exit");
   console.log("5 - Ask question");
@@ -40,24 +40,21 @@ async function menu() {
       break;
 
     case "2":
-      await handleSendTransaction();
+      recoverWallet();
       break;
 
     case "3":
-      console.log("Receive transaction não implementado ainda.");
       break;
 
     case "4":
-      console.log("Exiting...");
-      rl.close();
-      return;
+      break;
 
     case "5":
-      console.log("Ask question não implementado ainda.");
       break;
 
     default:
       console.log("Vai tomar no cu, não tem essa opção!");
+      await menu();
   }
 
   await pause();
@@ -69,48 +66,30 @@ async function pause() {
 }
 
 async function createWallet() {
-  try {
-    myWallet = walletService.createWallet();
-    console.log("Wallet criada com sucesso!");
-    console.log("Address:", myWallet.address);
-    console.log("Private Key (guarde com segurança!):", myWallet.privateKey);
-  } catch (err) {
-    console.error("Erro ao criar carteira:", err?.message || err);
-  }
+  myWallet = walletService.createWallet();
+  const myAddress = myWallet.address;
+
+  console.log(`Your new wallet:`);
+  console.log(myAddress);
+  console.log("PK: " + myWallet.privateKey);
+
+  await menu();
 }
 
-async function handleSendTransaction() {
-  try {
-    if (!myWallet) {
-      console.log("Crie/importe uma carteira primeiro (opção 1).");
-      return;
-    }
+function recoverWallet() {
+  console.clear();
+  rl.question("What is your private key or phrase mnemonic? ", (pkOrMnemonic) => {
+    myWallet = walletService.recoverWallet(pkOrMnemonic); // usa a variável global
+    const myAddress = myWallet.address;
 
-    const toAddress = await ask("To address: ");
-    const amountStr = await ask(`Amount in ${SYMBOL}: `);
-    const amount = Number(amountStr.replace(",", "."));
+    console.log("Your recovered wallet:");
+    console.log(myAddress);
 
-    if (!toAddress) {
-      console.log("Endereço de destino inválido.");
-      return;
-    }
-    if (!Number.isFinite(amount) || amount <= 0) {
-      console.log("Valor inválido.");
-      return;
-    }
-
-    const txId = await walletService.sendTransaction({
-      fromAddress: myWallet.address,
-      toAddress,
-      amount
-    });
-
-    console.log("Transação enviada com sucesso!");
-    console.log("TX ID:", txId);
-  } catch (err) {
-    console.error("Falha ao enviar transação:", err?.message || err);
-  }
+    menu(); // chama o menu novamente
+  });
 }
 
-// iniciar o programa
+
+
+
 menu();
