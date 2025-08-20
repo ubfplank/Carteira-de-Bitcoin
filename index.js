@@ -62,7 +62,7 @@ async function pause() {
   await ask("Pressione ENTER para continuar...");
 }
 
-async function createWallet() {
+function createWallet() {
   myWallet = walletService.createWallet();
   const myAddress = myWallet.address;
 
@@ -70,7 +70,7 @@ async function createWallet() {
   console.log(myAddress);
   console.log("PK: " + myWallet.privateKey);
 
-  await menu();
+ 
 }
 
 function recoverWallet() {
