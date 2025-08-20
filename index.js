@@ -28,22 +28,21 @@ async function menu() {
 
   switch (answer) {
     case "1":
-      await createWallet();
+      createWallet();
       break;
-
     case "2":
       recoverWallet();
       break;
-
-    case "3":break;
-
-    case "4": break;
-
-    case "5":break;
-
+    case "3":
+      break;
+    case "4":
+      process.exit(0); // sai do programa
+      break;
+    case "5":
+      getBalance();
+      break;
     default:
-      console.log("Vai tomar no cu, não tem essa opção!");
-      await menu();
+      console.log("Opção inválida!");
   }
 
   await pause();
@@ -61,21 +60,35 @@ function createWallet() {
   console.log(`Your new wallet:`);
   console.log(myAddress);
   console.log("PK: " + myWallet.privateKey);
-
- 
 }
 
 function recoverWallet() {
   console.clear();
   rl.question("What is your private key or phrase mnemonic? ", (pkOrMnemonic) => {
-    const myWallet = walletService.recoverWallet(pkOrMnemonic); // usa a variável global
-     myAddress = myWallet.address;
+    myWallet = walletService.recoverWallet(pkOrMnemonic);
+    const myAddress = myWallet.address;
 
-    console.log(`Your recovered wallet: `);
+    console.log(`Your recovered wallet:`);
     console.log(myAddress);
 
     pause().then(() => menu());
   });
 }
 
+async function getBalance() {
+  console.clear();
+
+  if (!myWallet) {
+    console.log(`You do not have a wallet yet`);
+    await pause();
+    return menu();
+  }
+
+  const { balanceInEth } = await walletService.getBalance(myWallet.address);
+  console.log(`${SYMBOL} ${balanceInEth}`);
+
+  await pause();
+}
+
 menu();
+

@@ -28,10 +28,18 @@ function recoverWallet(pkOrMnemonic, provider) {
     privateKey: wallet.privateKey
   };
 }
+async function getBalance(address){
+const balance = await provider.getBalance(address);
+return {
+  balanceInWei: balance,
+  balanceInEth: ethers.formatEther(balance)
+}
 
+}
 module.exports = {
   createWallet,
   recoverWallet,
-  sendTransaction
+  sendTransaction, 
+  getBalance,
 };
 
