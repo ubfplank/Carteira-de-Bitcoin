@@ -1,11 +1,15 @@
 const { Wallet } = require("ethers");
 
-function createWallet() {
-  const wallet = Wallet.createRandom();
-  return {
-    address: wallet.address,
-    privateKey: wallet.privateKey
-  };
+async function createWallet() {
+  myWallet = walletService.createWallet();
+  const myAddress = myWallet.address;
+
+  console.log(`Your new wallet:`);
+  console.log(myAddress);
+  console.log("PK: " + myWallet.privateKey);
+
+  await pause(); // pausa para o usuário ler
+  // Não chame menu() aqui
 }
 
 /**
@@ -35,4 +39,10 @@ function recoverWallet(pkOrMnemonic, provider) {
   };
 }
 
+// Exporta todas as funções corretamente
+module.exports = {
+  createWallet,
+  sendTransaction,
+  recoverWallet
+};
 
