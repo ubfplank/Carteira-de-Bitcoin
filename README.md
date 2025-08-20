@@ -1,1 +1,1 @@
-My first attempt at creatig a crypto wallet
+My first attempt at creating a crypto wallet
