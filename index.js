@@ -76,17 +76,14 @@ async function createWallet() {
 function recoverWallet() {
   console.clear();
   rl.question("What is your private key or phrase mnemonic? ", (pkOrMnemonic) => {
-    myWallet = walletService.recoverWallet(pkOrMnemonic); // usa a variável global
-    const myAddress = myWallet.address;
+    const myWallet = walletService.recoverWallet(pkOrMnemonic); // usa a variável global
+     myAddress = myWallet.address;
 
-    console.log("Your recovered wallet:");
+    console.log(`Your recovered wallet: `);
     console.log(myAddress);
 
-    menu(); // chama o menu novamente
+    preMenu(); 
   });
 }
-
-
-
 
 menu();
