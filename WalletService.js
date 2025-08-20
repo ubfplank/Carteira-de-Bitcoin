@@ -19,7 +19,20 @@ async function sendTransaction({ fromAddress, toAddress, amount }) {
 }
 
 function recoverWallet(pkOrMnemonic, provider) {
+  let wallet;
 
-  
+  if (pkOrMnemonic.indexOf(" ") !== -1) {
+    // Se tiver espaço, é uma mnemonic phrase
+    wallet = Wallet.fromPhrase(pkOrMnemonic, provider);
+  } else {
+    // Senão, é uma private key
+    wallet = new Wallet(pkOrMnemonic, provider);
+  }
+
+  return {
+    address: wallet.address,
+    privateKey: wallet.privateKey
+  };
 }
+
 

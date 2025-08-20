@@ -43,14 +43,11 @@ async function menu() {
       recoverWallet();
       break;
 
-    case "3":
-      break;
+    case "3":break;
 
-    case "4":
-      break;
+    case "4": break;
 
-    case "5":
-      break;
+    case "5":break;
 
     default:
       console.log("Vai tomar no cu, não tem essa opção!");
