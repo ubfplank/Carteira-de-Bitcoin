@@ -36,7 +36,7 @@ async function menu() {
       await recoverWallet();
       break;
     case "3": sendTx(); break;
-    case "4": process.exit(0); // sair do programa
+    case "4": getTransaction(); break;
     case "5":await getBalance(); break;
     default: console.log("Opção inválida!"); await pause();
   }
@@ -132,5 +132,15 @@ function sendTx(){
   })
 
   menu();
+}
+
+function getTransaction(){
+  console.clear();
+
+  rl.question(`Ypur tx hash:`, async(hash) =>{
+    const txReceipt = await walletService.getTransaction(hash);
+    console.log (`Your tx receipt:`);
+    console.log(txReceipt);
+  })
 }
 menu();

@@ -65,6 +65,12 @@ async function buildTransaction(wallet, toWallet, amountInEth) {
 async function sendTransaction(wallet, tx) {
   return await wallet.sendTransaction(tx);
 }
+function sendTransaction(tx){
+  return myWallet.sendTransaction(tx);
+}
+function getTransaction(hash){
+  return provider.getTransaction(hash);
+}
 
 module.exports = {
   createWallet,
@@ -73,6 +79,7 @@ module.exports = {
   buildTransaction,
   sendTransaction,
   addressIsValid,
+  getTransaction,
 };
 
 
