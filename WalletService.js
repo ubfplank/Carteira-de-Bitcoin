@@ -9,13 +9,6 @@ function createWallet() {
   };
 }
 
-// Simula envio de transação
-async function sendTransaction({ fromAddress, toAddress, amount }) {
-  const fakeTxHash = "0x" + Math.floor(Math.random() * 1e16).toString(16);
-  console.log(`Simulando envio de ${amount} BNB de ${fromAddress} para ${toAddress}`);
-  return fakeTxHash;
-}
-
 // Recupera carteira a partir de PK ou mnemonic
 function recoverWallet(pkOrMnemonic) {
   let wallet;
@@ -34,9 +27,7 @@ function recoverWallet(pkOrMnemonic) {
 
 // Consulta saldo real
 async function getBalance(address) {
-  // Definindo provider da Binance Smart Chain (BSC)
   const provider = new ethers.JsonRpcProvider("https://bsc-dataseed.binance.org/");
-
   const balance = await provider.getBalance(address);
 
   return {
@@ -45,9 +36,44 @@ async function getBalance(address) {
   };
 }
 
+// Validação de endereço
+function addressIsValid(address) {
+  return ethers.isAddress(address);
+}
+
+// Monta transação
+async function buildTransaction(wallet, toWallet, amountInEth) {
+  const provider = new ethers.JsonRpcProvider("https://bsc-dataseed.binance.org/");
+  const amount = ethers.parseEther(amountInEth);
+
+  const tx = {
+    to: toWallet,
+    value: amount
+  };
+
+  const feeData = await provider.getFeeData();
+  const txFee = 21000n * feeData.gasPrice;
+
+  const balance = await provider.getBalance(wallet.address);
+  if (balance < (amount + txFee)) {
+    return false;
+  }
+  return tx;
+}
+
+// Envia transação
+async function sendTransaction(wallet, tx) {
+  return await wallet.sendTransaction(tx);
+}
+
 module.exports = {
   createWallet,
   recoverWallet,
+  getBalance,
+  buildTransaction,
   sendTransaction,
-  getBalance
+  addressIsValid,
 };
+
+
+
