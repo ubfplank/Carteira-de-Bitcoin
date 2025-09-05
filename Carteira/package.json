@@ -1,0 +1,16 @@
+{
+  "name": "carteira",
+  "version": "1.0.0",
+  "description": "Carteira de BNB simples com menu interativo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ethers": "^6.15.0"
+  }
+}
